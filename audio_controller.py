@@ -5,7 +5,7 @@ import time
 from pygame import mixer
 from multiprocessing import Process
 import sounddevice as sd
-
+import soundfile as sf
 
 class Player:
 
@@ -13,19 +13,26 @@ class Player:
 	keep_playing = True
 	interval = 0
 	
-	# def __init__(self):
-		# interval = 1
+	def __init__(self, files, channel):
+		self.files = files
+		self.channel = self.channels[channel]
+		print ("initializeing player...")
+		print ("...on channel: " + str(channel))
 		# self.mixer = mixer
 		# mixer.init()
-		# self.files = files
-		# sd.query_devices()
+		print (str(sd.query_devices()))
+		sd.default_device = "stereo3"
+		sd.default.samplerate = 44100
 		
     
-	def play(self, channel):
+	def play(self):
 		print ("player plays")
-		os.system("aplay /home/pi/2.wav -D " + self.channels[channel])
+		# os.system("aplay /home/pi/2.wav -D " + self.channels[channel])
 		# self.mixer.music.load("/home/pi/2.wav")
 		# self.mixer.music.play()
+		data, fs = sf.read("/home/pi/2.wav")
+		sd.play(data, fs)
+		# sd.wait()
 		
 	# def play_random(self):
 		# file_to_play = random.choice(self.files)

@@ -23,7 +23,6 @@ def detector_callback(self):
 pause = 1
 detection_timestamp = 0
 detector = MotionDetector(detector_callback)
-player = Player()
 queue = Queue()
 blinker = Blinker()
 
@@ -77,7 +76,9 @@ class EventManager():
 	
 	def player_thread(self, queue, audio_channel):
 	
+
 		files_for_player = self.file_manager.get_files_in_path(self.file_folders[audio_channel])
+		player = Player(files_for_player, audio_channel)
 				
 		while True:
 			global pause
@@ -85,8 +86,7 @@ class EventManager():
 			print ("player thread on channel: " + str(audio_channel) + " plays")
 			print ("player_thread on channel: " + str(audio_channel) + " sleeps for: " + str(pause))
 			# player.play(channel = audio_channel)
-			global player
-			player.play(audio_channel)
+			player.play()
 			time.sleep(pause)
 	
 	def detection_thread(self, threadname, q):
