@@ -6,37 +6,43 @@ from pygame import mixer
 from multiprocessing import Process
 import sounddevice as sd
 import soundfile as sf
+from file_manager import FileManager
+
 
 class Player:
 
 	channels = ["stereo1", "stereo2", "stereo3", "stereo4"]
 	keep_playing = True
 	interval = 0
+	file_manager = FileManager()
 	
-	def __init__(self, files, channel):
-		self.files = files
+	def __init__(self, folder, channel):
+		self.folder = folder
+		print ("Folder is: " + folder)
+		self.files = self.file_manager.get_files_in_path(folder)
 		self.channel = self.channels[channel]
 		print ("initializeing player...")
 		print ("...on channel: " + str(channel))
 		# self.mixer = mixer
 		# mixer.init()
 		print (str(sd.query_devices()))
-		sd.default_device = "stereo3"
+		sd.default_device = channel
 		sd.default.samplerate = 44100
 		
     
 	def play(self):
-		print ("player plays")
-		# os.system("aplay /home/pi/2.wav -D " + self.channels[channel])
+		print ("player plays on channel " + str(self.channel))
+		os.system("aplay /home/pi/2.wav -D " + self.channel)
 		# self.mixer.music.load("/home/pi/2.wav")
 		# self.mixer.music.play()
-		data, fs = sf.read("/home/pi/2.wav")
-		sd.play(data, fs)
+		# data, fs = sf.read("/home/pi/2.wav")
+		# sd.play(data, fs, blocking = True)
 		# sd.wait()
 		
-	# def play_random(self):
-		# file_to_play = random.choice(self.files)
-		# print ("playing file:"  + file_to_play + " on channel: ", self.channel)
+	def play_random(self):
+		file_to_play = random.choice(self.files)
+		print ("playing file:"  + file_to_play + " on channel: ", self.channel)
+		os.system("aplay " + self.folder + "/" + file_to_play + " -D " + self.channel)
 		# self.mixer.music.load(file_to_play)
 		# self.mixer.music.play(channels[self.channel])
 		
