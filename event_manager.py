@@ -1,12 +1,11 @@
 import time
-
-
 from motion_detector import MotionDetector
 from led_controller import Blinker
 from queue import Queue
 from threading import Thread
 from audio_controller import Player
 from file_manager import FileManager
+from random import randint
 
 
 # global stuff unfortunately
@@ -15,8 +14,14 @@ def detector_callback(self):
 			blinker.multiple_blink(2)
 			print("Motion detected!")
 			global pause
-			if (pause > 1):
-				pause -=1
+			print ("subtracting from pause")
+			if pause > 15:
+				pause -= 4
+			else: 
+				pause = pause -1
+			if (pause < 1):
+				pause = 1
+			print ("new pause: " + str(pause))
 			global detection_timestamp
 			detection_timestamp = time.time()
 			print (" time stamp: " + str(detection_timestamp))
@@ -66,8 +71,8 @@ class EventManager():
 	def adjust_pause(self):
 		global pause
 		global detection_timestamp
-		if (time.time() - detection_timestamp > 5):
-			print ("silence since last motion: " + str(time.time() - detection_timestamp))
+		print ("silence since last motion: " + str(time.time() - detection_timestamp))
+		if (time.time() - detection_timestamp > 10):
 			if (pause <= 30):
 				pause += 2
 				print ("new pause: " + str(pause))
@@ -75,8 +80,6 @@ class EventManager():
 		
 	
 	def player_thread(self, queue, audio_channel):
-	
-
 		files_for_player = self.file_manager.get_files_in_path(self.file_folders[audio_channel])
 		player = Player(self.file_folders[audio_channel], audio_channel)
 				
