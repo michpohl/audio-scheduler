@@ -24,3 +24,11 @@ class Blinker:
 			GPIO.output(17,GPIO.LOW)
 			time.sleep(0.1)
 			counter -= 1
+
+		
+# for testing:		
+# blinker = Blinker()
+		
+# while True:
+	# blinker.blink()
+	# time.sleep(1)
