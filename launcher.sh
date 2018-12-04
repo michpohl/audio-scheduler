@@ -4,5 +4,6 @@
 
 cd /
 cd home/pi/audio-scheduler
-sudo python3  main.py
-cd /
+sudo python3 main.py 
+cd / 
+
