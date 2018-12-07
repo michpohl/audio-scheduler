@@ -1,6 +1,6 @@
 # audio-scheduler
-### A small python program to randomly play audio files (in .wav format) to multiple outputs on a Raspberry Pi
-### If you connect a motion sensor (or whatever else you want) it alters the playback frequency based on detected motions (more detections -> faster frequency
+### A small python program to randomly play audio files (in .wav format) from multiple sources to multiple outputs on a Raspberry Pi
+### If you connect a motion sensor (or whatever else you want) it alters the playback frequency based on detected motions (more detections -> faster frequency)
 
 This is a work in progress! There are very obvious issues that need to be (and will get) improved, such as:
 - fixed naming of folders and channels
