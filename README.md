@@ -20,5 +20,5 @@ This is a work in progress! There are very obvious issues that need to be (and w
 ### Installation & Start:
 1. Make sure you have Python 3.5 installed
 2. Pull the repository into a directory on your device.
-3. Put the .wav files that you want to use into the subfolders a, b, c & d 
+3. Put the .wav files that you want to use into the subfolders a, b, c & d. Each of those subfolders corresponds to one stereo channel output 
 4. run startup.sh
